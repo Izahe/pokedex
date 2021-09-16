@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
 
 export default class PokemonCard extends Component {
+    state = {
+        name: '',
+        imageUrl: '',
+        pokemonIndex: ''
+    }
+
+
     render(){
         return (
             <div className = 'col-md-3 col-sm-6 mb-5'>
@@ -8,6 +15,6 @@ export default class PokemonCard extends Component {
                     <div className="card-header"><h1>WOO</h1></div>
                 </div>
             </div>
-        )
+        );
     }
 }
