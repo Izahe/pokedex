@@ -34,9 +34,9 @@ function App(): JSX.Element {
     <div className="App">
       <NavBar />
       <form onSubmit ={handleSubmit}> 
-        <div className="form-group">
+        <div className="form-group ">
           <label>
-            <input type="text" className="form-control" id="pokedexEntry"  onChange = {handleChange} placeholder="Enter a Pokemon"/>
+            <input type="text" className="form-control form-control-lg" id="pokedexEntry"  onChange = {handleChange} placeholder="Enter a Pokemon"/>
           </label>
         </div>
       </form>

@@ -6,7 +6,7 @@ export const PokemonCard = (props: {name: string, image: string}): JSX.Element =
                    <div className="card-header">
                     <h1>{props.name}</h1>
                    </div>
-                  <div className = "image">
+                  <div className = "card-image">
                     <img src = {props.image} alt = {props.name} width = "300" height = "300"></img>
                   </div> 
              </div>
