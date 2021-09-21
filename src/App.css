@@ -4,9 +4,8 @@
 .card{
   position: relative;
   top: 50px;
-  left: 600px;
 }
-.card-header, .card-image{
+.card-image{
   text-align: center;
 }
 .form-group{
