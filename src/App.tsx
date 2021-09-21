@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
 import axios from 'axios'
@@ -7,14 +7,22 @@ import { PokemonCard } from './components/pokemon/PokemonCard';
 
 function App(): JSX.Element {
   const [pokemon, setPokemon] = useState<string>("pikachu");
-  const [pokemonName, setPokemonName] = useState<string>("");
-  const [pokemonImage, setPokemonImage] = useState<string>("");
+  const [pokemonList, setPokemonList] = useState([
+    {
+      name: "pikachu",
+      image: "a"
+    }
+  ])
   const getPokemon = async () => {
     try{
       const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`
       const res = await axios.get(url);
-      setPokemonName(res.data.name);
-      setPokemonImage(res.data.sprites.front_default)
+      let pokemon_name: string = res.data.name;
+      //Making the first letter capitalized
+      pokemon_name = pokemon_name.substring(0,1).toUpperCase() + pokemon_name.substring(1);
+      const pokemon_image: string = res.data.sprites.front_default;
+      const new_pokemon = {name: pokemon_name, image: pokemon_image}; 
+      setPokemonList([...pokemonList, new_pokemon])
       console.log(res);
     }
     catch(error){
@@ -37,14 +45,14 @@ function App(): JSX.Element {
         <div className="form-group ">
           <label>
             <input type="text" className="form-control form-control-lg" id="pokedexEntry"  onChange = {handleChange} placeholder="Enter a Pokemon"/>
-          </label>
+          </label>  
         </div>
       </form>
-        <PokemonCard
-          name = {pokemonName}
-          image = {pokemonImage}
-        />
-        
+        <div className = "row">
+          <PokemonCard
+          list = {pokemonList}
+          />  
+        </div>
     </div>
     );
 };
