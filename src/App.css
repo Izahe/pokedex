@@ -10,8 +10,15 @@
 }
 .form-group{
   position: relative;
-  left: 600px;
+  left: 290px;
 }
 .navbar{
   background-color: #ef5350 !important;
+}
+#pokedexEntry{
+  width: 1000px !important;
+  height: 70px !important;
+  margin: auto !important;
+  border-color:#ef5350 !important;
+  border-width: 3px !important;
 }

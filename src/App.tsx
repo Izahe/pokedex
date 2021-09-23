@@ -4,11 +4,9 @@ import './App.css';
 import axios from 'axios'
 import NavBar from './components/layout/NavBar';
 import { PokemonCard } from './components/pokemon/PokemonCard';
+import { Pokemon } from './interfaces/Pokemon'
 
-interface Pokemon {
-  name: string;
-  image: string;
-}
+
 function App(): JSX.Element {
   const [pokemon, setPokemon] = useState<string>("pikachu");
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([])
@@ -24,7 +22,7 @@ function App(): JSX.Element {
         //Making the first letter capitalized
         pokemon_name = pokemon_name.substring(0,1).toUpperCase() + pokemon_name.substring(1);
         const pokemon_image: string = res.data.sprites.front_default;
-        const new_pokemon = {name: pokemon_name, image: pokemon_image}; 
+        const new_pokemon = {name: pokemon_name, image: pokemon_image, id: Math.random()}; 
         setPokemonList([...pokemonList, new_pokemon]);
         console.log(res);
       }
@@ -33,6 +31,11 @@ function App(): JSX.Element {
       console.log(error);
     }
   };
+
+  const deletePokemon  = (id: number) => {
+    setPokemonList(pokemonList.filter((pokemon) => pokemon.id !== id))
+    console.log("deleted", id)
+  }
 
   const handleChange = (input: any) => {
     setPokemon(input.target.value.toLowerCase());
@@ -48,14 +51,20 @@ function App(): JSX.Element {
       <form onSubmit ={handleSubmit}> 
         <div className="form-group ">
           <label>
-            <input type="text" className="form-control form-control-lg" id="pokedexEntry"  onChange = {handleChange} placeholder="Enter a Pokemon"/>
+            <input type="text" className="form-control form-control-lg " id="pokedexEntry"  onChange = {handleChange} placeholder="Enter a Pokemon"/>
           </label>  
         </div>
       </form>
         <div className = "row">
+          {pokemonList.length == 0 ? (
+            <h1>No Pokemon, enter a Pokemon above to get started.</h1>)
+          :  
+          (
           <PokemonCard
           list = {pokemonList}
-          />  
+          onDelete = {deletePokemon}
+          />) 
+          }
         </div>
     </div>
     );
