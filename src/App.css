@@ -1,9 +1,9 @@
 .App{
   padding-top: 130px;
 }
-.card{
+#pokemon_row{
   position: relative;
-  top: 50px;
+  top: 100px;
 }
 .card-image{
   text-align: center;
@@ -21,4 +21,9 @@
   margin: auto !important;
   border-color:#ef5350 !important;
   border-width: 3px !important;
+}
+#delete_all_button{
+ position: relative;
+ top:35px;
+ left:340px;
 }
