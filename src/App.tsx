@@ -34,7 +34,11 @@ function App(): JSX.Element {
 
   const deletePokemon  = (id: number) => {
     setPokemonList(pokemonList.filter((pokemon) => pokemon.id !== id))
-    console.log("deleted", id)
+    console.log("deleted", id);
+  }
+  const deleteAllPokemon = (list: Pokemon[]) => {
+    setPokemonList(pokemonList.filter(() => 0))
+    console.log("deleted all pokemon");
   }
 
   const handleChange = (input: any) => {
@@ -52,10 +56,11 @@ function App(): JSX.Element {
         <div className="form-group ">
           <label>
             <input type="text" className="form-control form-control-lg " id="pokedexEntry"  onChange = {handleChange} placeholder="Enter a Pokemon"/>
-          </label>  
+            <button type="button" className="btn btn-danger btn-lg" id="delete_all_button" onClick = {() => deleteAllPokemon(pokemonList)}>Delete All Pokemon</button>
+          </label> 
         </div>
       </form>
-        <div className = "row">
+        <div className = "row" id = "pokemon_row">
           {pokemonList.length == 0 ? (
             <h1>No Pokemon, enter a Pokemon above to get started.</h1>)
           :  
