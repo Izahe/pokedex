@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
-import axios from 'axios'
+import axios from 'axios';
 import NavBar from './components/layout/NavBar';
 import { PokemonCard } from './components/pokemon/PokemonCard';
-import { Pokemon } from './interfaces/Pokemon'
-
+import { Pokemon } from './interfaces/Pokemon';
+import { PokemonTeam } from './interfaces/PokemonTeam';
+import { SavedTeams } from './components/layout/SavedTeams';
 
 function App(): JSX.Element {
   const [pokemon, setPokemon] = useState<string>("pikachu");
-  const [pokemonList, setPokemonList] = useState<Pokemon[]>([])
+  const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
+  const [savedTeams, setSavedTeams] = useState<PokemonTeam[]>([]);
+
   const getPokemon = async () => {
     try{
       if (pokemonList.length == 6){
@@ -41,6 +44,17 @@ function App(): JSX.Element {
     console.log("deleted all pokemon");
   }
 
+  const saveTeam = () =>  {
+   let team_name: any = window.prompt("Enter a team name");
+   if (team_name){
+    let new_team: PokemonTeam = {name: team_name, team: pokemonList};
+    setSavedTeams([...savedTeams, new_team]);
+   }
+  }
+
+  const loadTeam = (team: Pokemon[]) => {
+    setPokemonList(team);
+  }
   const handleChange = (input: any) => {
     setPokemon(input.target.value.toLowerCase());
   }
@@ -55,8 +69,13 @@ function App(): JSX.Element {
       <form onSubmit ={handleSubmit}> 
         <div className="form-group ">
           <label>
-            <input type="text" className="form-control form-control-lg " id="pokedexEntry"  onChange = {handleChange} placeholder="Enter a Pokemon"/>
+            <input type="text" className="form-control form-control-lg " id="pokedexEntry"  onChange = {handleChange} placeholder="Enter a Pokemon, then press enter"/>
             <button type="button" className="btn btn-danger btn-lg" id="delete_all_button" onClick = {() => deleteAllPokemon(pokemonList)}>Delete All Pokemon</button>
+            <button type="button" className="btn btn-success btn-lg" id="save_button" onClick = {() => saveTeam()}>Save Pokemon Team</button>
+            <SavedTeams
+              list = {savedTeams}
+              onLoad = {loadTeam}
+            />
           </label> 
         </div>
       </form>

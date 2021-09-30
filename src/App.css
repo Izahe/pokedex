@@ -18,7 +18,8 @@
 #pokedexEntry{
   width: 1000px !important;
   height: 70px !important;
-  margin: auto !important;
+  position: relative;
+  left: -180px;
   border-color:#ef5350 !important;
   border-width: 3px !important;
 }
@@ -26,4 +27,14 @@
  position: relative;
  top:35px;
  left:340px;
+}
+#save_button{
+  position: relative;
+  top:35px;
+  right:200px;
+}
+#teams_list{
+  position: relative;
+  top: -150px;
+  left: 880px;
 }
